@@ -1,0 +1,78 @@
+/*********************************************************************************** 
+
+NAME: TikTok Data Analysis Q&A
+PURPOSE: Questions using SQL Server
+MODIFICATION
+Ver Date        Author         Description
+--- ---------  -------------  -----------
+1.0 06/02/2025  L. Stevenson  1. Built this script for TikTok dataset analysis
+
+RUtime :
+
+NOTES:
+
+***********************************************************************************
+*******************************/
+
+-- Q1: Which TikTok videos have the highest engagement (likes, comments, shares), and how do these compare based on video length?
+-- A1: Retrieve videos with the highest engagement and compare their lengths.
+
+SELECT 
+    video_id, 
+    user_id, 
+    video_length, 
+    likes, 
+    comments, 
+    shares, 
+    (likes + comments + shares) AS total_engagement
+FROM 
+    TikTok_Videos
+ORDER BY 
+    total_engagement DESC;
+
+
+
+-- Q2: Which TikTok creators have the most followers, and how does that compare to their total video engagement?
+-- A2: List top creators with highest follower count and their total engagement.
+
+SELECT 
+    creator_id, 
+    creator_name, 
+    followers, 
+    SUM(likes + comments + shares) AS total_engagement
+FROM 
+    TikTok_Creators tc
+JOIN 
+    TikTok_Videos tv ON tc.creator_id = tv.user_id
+GROUP BY 
+    creator_id, creator_name, followers
+ORDER BY 
+    followers DESC;
+
+
+
+-- Q3: How does the average engagement rate vary across different TikTok video categories?
+-- A3: Calculate average engagement per category.
+
+SELECT 
+    category, 
+    AVG(likes + comments + shares) AS avg_engagement
+FROM 
+    TikTok_Videos
+GROUP BY 
+    category
+ORDER BY 
+    avg_engagement DESC;
+
+
+
+-- Q4: What is the average video length for videos with high engagement compared to those with low engagement? 
+-- A4: Compare video lengths based on engagement level.
+
+WITH EngagementComparison AS (
+    SELECT 
+        AVG(CASE WHEN (likes + comments + shares) > 10000 THEN video_length END) AS HighEngagementAvgLength,
+        AVG(CASE WHEN (likes + comments + shares) <= 10000 THEN video_length END) AS LowEngagementAvgLength
+    FROM TikTok_Videos
+)
+SELECT * FROM EngagementComparison;

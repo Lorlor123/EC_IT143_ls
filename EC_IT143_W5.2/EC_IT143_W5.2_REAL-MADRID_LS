@@ -1,0 +1,71 @@
+/***********************************************************************************
+******************************
+NAME: Real Madrid Data Analysis
+PURPOSE: Questions using SQL Server
+MODIFICATION
+Ver Date        Author      Description
+--- ---------  ----------   -----------
+1.0 07/02/2025  LORMINE     1. Built this script for Real Madrid Club analysis
+
+RUNTIME:
+
+NOTES:
+
+***********************************************************************************
+*******************************/
+
+-- Creating the Real Madrid Players table
+CREATE TABLE RealMadrid_Players (
+    Player_ID INT PRIMARY KEY,
+    Name NVARCHAR(50),
+    Position NVARCHAR(20),
+    Goals INT,
+    Assists INT,
+    Matches_Played INT
+);
+
+-- Inserting sample data
+INSERT INTO RealMadrid_Players (Player_ID, Name, Position, Goals, Assists, Matches_Played)
+VALUES
+    (1, 'Vinicius Jr', 'Forward', 12, 8, 30),
+    (2, 'Jude Bellingham', 'Midfielder', 10, 6, 28),
+    (3, 'Dani Carvajal', 'Defender', 2, 5, 32),
+    (4, 'Toni Kroos', 'Midfielder', 3, 10, 30);
+
+-- Q1: Who is the highest goal scorer in the team?
+SELECT TOP 1 
+    Name, 
+    Goals 
+FROM 
+    RealMadrid_Players 
+ORDER BY 
+    Goals DESC;
+
+-- Q2: Which midfielder has contributed the most assists?
+SELECT TOP 1 
+    Name, 
+    Assists 
+FROM 
+    RealMadrid_Players 
+WHERE 
+    Position = 'Midfielder' 
+ORDER BY 
+    Assists DESC;
+
+-- Q3: What is the average number of goals scored by players in each position?
+SELECT 
+    Position, 
+    AVG(Goals) AS Avg_Goals 
+FROM 
+    RealMadrid_Players 
+GROUP BY 
+    Position;
+
+-- Q4: Who has played the most matches this season?
+SELECT TOP 1 
+    Name, 
+    Matches_Played 
+FROM 
+    RealMadrid_Players 
+ORDER BY 
+    Matches_Played DESC;
