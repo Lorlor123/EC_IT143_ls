@@ -9,7 +9,7 @@ JOIN Production.ProductInventory s ON p.ProductID = s.ProductID
 WHERE p.ListPrice > 1000;
 GO
 
--- 2. View the execution plan (Run in SSMS)
+-- 2. View the execution plan 
 SET STATISTICS IO ON;
 SET STATISTICS TIME ON;
 GO
