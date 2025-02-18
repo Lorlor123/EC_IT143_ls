@@ -1,11 +1,11 @@
 /*****************************************************************************************************************
-NAME:    My Script Name
-PURPOSE: My script purpose...
+NAME:   T-SQL Data Manipulation
+PURPOSE: Fun with functon
 
 MODIFICATION LOG:
 Ver      Date        Author        Description
 -----   ----------   -----------   -------------------------------------------------------------------------------
-1.0     05/23/2022   JJAUSSI       1. Built this script for EC IT440
+1.0     05/23/2022   Lormine       1. Built this script for EC IT440
 
 
 RUNTIME: 
